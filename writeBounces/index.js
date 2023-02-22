@@ -1,14 +1,23 @@
-﻿/*
- * This function is not intended to be invoked directly. Instead it will be
- * triggered by an orchestrator function.
- * 
- * Before running this sample, please:
- * - create a Durable orchestration function
- * - create a Durable HTTP starter function
- * - run 'npm install durable-functions' from the wwwroot folder of your
- *   function app in Kudu
- */
+﻿const database = require('../database');
 
 module.exports = async function (context) {
-    return;
+  const { bounces, instanceId } = context.bindingData.args;
+  const bounceValues = [];
+  const table = process.env.DB_TABLE;
+  const columns = `RecordType, ID, Type, TypeCode, Name, Tag, MessageID, ServerID, MessageStream, Description, Details, ToEmail, FromEmail, BouncedAt, DumpAvailable, Inactive, CanActivate, Subject`;
+  let response;
+
+  for (bounce of bounces) {
+    bounce.BouncedAt = bounce.BouncedAt.replace('T', ' ').replace('Z', '');
+    bounceValues.push(Object.values(bounce));
+  };
+
+  try {
+    response = await database.writeBounces(table, columns, bounceValues);
+    context.log(`writeBounces succeeded to update database for instance = '${instanceId}'.`);
+    return response;
+  } catch (err) {
+    context.log(`writeBounces failed to update database for instance = '${instanceId}'. ${err}`);
+    return null;
+  }
 };

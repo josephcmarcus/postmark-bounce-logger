@@ -5,6 +5,7 @@ const getYesterdayDate = require('../utils/getYesterdayDate');
 module.exports = async function (context) {
   const { instanceId } = context.bindingData.args;
   const yesterday = getYesterdayDate();
+  const testDate = '2023-02-17';
 
   try {
     const response = await axios({
@@ -15,8 +16,8 @@ module.exports = async function (context) {
         count: 500,
         inactive: 'true',
         offset: 0,
-        fromdate: `${yesterday}T00:00:00`,
-        todate: `${yesterday}T23:59:59`,
+        fromdate: `${testDate}T00:00:00`, //change testDate back to yesterday
+        todate: `${testDate}T23:59:59`, //change testDate back to yesterday
       },
       headers: {
         Accept: 'application/json',
