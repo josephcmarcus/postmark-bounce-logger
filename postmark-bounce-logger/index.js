@@ -1,5 +1,4 @@
 ﻿const df = require('durable-functions');
-const getYesterdayDate = require('../utils/getYesterdayDate');
 
 module.exports = df.orchestrator(function* (context) {
   const activityPayload = {
