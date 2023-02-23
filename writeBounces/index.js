@@ -4,7 +4,8 @@ module.exports = async function (context) {
   const { bounces, instanceId } = context.bindingData.args;
   const bounceValues = [];
   const table = process.env.DB_TABLE;
-  const columns = `RecordType, ID, Type, TypeCode, Name, Tag, MessageID, ServerID, MessageStream, Description, Details, ToEmail, FromEmail, BouncedAt, DumpAvailable, Inactive, CanActivate, Subject`;
+  const columns = 'RecordType, ID, Type, TypeCode, Name, Tag, MessageID, ServerID, MessageStream ,' +
+  'Description, Details, ToEmail, FromEmail, BouncedAt, DumpAvailable, Inactive, CanActivate, Subject';
   let response;
 
   for (bounce of bounces) {
