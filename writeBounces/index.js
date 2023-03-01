@@ -5,7 +5,7 @@ module.exports = async function (context) {
   const bounceValues = [];
   const table = process.env.DB_TABLE;
   const columns = 'RecordType, ID, Type, TypeCode, Name, Tag, MessageID, ServerID, MessageStream ,' +
-  'Description, Details, ToEmail, FromEmail, BouncedAt, DumpAvailable, Inactive, CanActivate, Subject';
+  'Description, Details, ToEmail, FromEmail, BouncedAt, DumpAvailable, Inactive, CanActivate, Subject, InsertDate';
   let response;
 
   for (bounce of bounces) {
